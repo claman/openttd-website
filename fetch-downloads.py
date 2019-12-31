@@ -14,6 +14,7 @@ import os
 import xmltodict
 
 from collections import defaultdict
+from itertools import islice
 
 session = None
 
@@ -30,6 +31,14 @@ types = {
     "openttd-pullrequests": "name",
 }
 
+# If set, this category is limited to these amount of entries to generate HTML
+# pages for. This is mostly done because nightlies for example are stored till
+# the end of times, but generating HTML for every one of them is not useful.
+# People that want a very old nightly can browse the archives directly.
+limits = {
+    "openttd-nightlies": 14,
+}
+
 
 async def download(url):
     async with session.get(url) as response:
@@ -44,7 +53,7 @@ async def get_old_download_folders():
 
     folders = {}
     for version in versions:
-        (version, date, folder) = version.split('\t', 2)
+        (version, date, folder) = version.split("\t", 2)
 
         # Do not process custom entries
         if folder.startswith("custom/"):
@@ -83,20 +92,20 @@ async def get_old_versions_of_folder(folder):
     listing = await download(f"https://binaries.openttd.org/{folder}/index.xml")
     listing = xmltodict.parse(listing.decode())
 
-    entries = listing['params']['param']['value']['struct']['member']
+    entries = listing["params"]["param"]["value"]["struct"]["member"]
     if not isinstance(entries, list):
         entries = [entries]
 
     versions = []
     for entry in entries:
         # Check if this is a directory
-        for value in entry['value']['struct']['member']:
-            if value['name'] == 'type' and value['value']['string'] == 'directory':
+        for value in entry["value"]["struct"]["member"]:
+            if value["name"] == "type" and value["value"]["string"] == "directory":
                 break
         else:
             continue
 
-        versions.append(entry['name'])
+        versions.append(entry["name"])
 
     return versions
 
@@ -171,9 +180,8 @@ async def main():
         os.makedirs(f"_downloads/{type}", exist_ok=True)
 
         versions = await get_old_versions_of_folder(folder)
-        # For the nightlies, only generate the first 90; the real list is 4000+
-        if type == "openttd-nightlies":
-            versions = versions[:90]
+        if type in limits:
+            versions = versions[:limits[type]]
 
         for version in versions:
             await handle_version(
@@ -190,8 +198,10 @@ async def main():
         latest_grouped = defaultdict(lambda: ["", ""])
         versions = await get_listing(type)
 
+        limit = limits.get(type)
+
         # Regroup the versions based on the method
-        for version, data in versions.items():
+        for version, data in islice(versions.items(), 0, limit):
             (date, name) = data
 
             if method == "flatten":

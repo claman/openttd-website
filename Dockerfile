@@ -38,6 +38,7 @@ RUN apk --no-cache add \
     && gem update --system \
     && gem install http_parser.rb -v 0.6.0 -- --use-system-libraries \
     && gem install safe_yaml -v 1.0.4 -- --use-system-libraries \
+    && bundle update --bundler \
     && bundle install \
     && apk --no-cache del \
         build-base \
@@ -51,5 +52,15 @@ RUN mkdir /html \
 
 # Copy the HTML and serve it via nginx
 FROM nginx:alpine
+
+ARG BUILD_DATE=""
+ARG BUILD_VERSION="dev"
+
+LABEL maintainer="truebrain@openttd.org"
+LABEL org.label-schema.schema-version="1.0"
+LABEL org.label-schema.build-date=${BUILD_DATE}
+LABEL org.label-schema.version=${BUILD_VERSION}
+
 COPY --from=html /html/ /usr/share/nginx/html/
+RUN sed -i 's/access_log/# access_log/g' /etc/nginx/nginx.conf
 COPY nginx.default.conf /etc/nginx/conf.d/default.conf

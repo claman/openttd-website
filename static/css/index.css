@@ -1,85 +1,68 @@
 
-#index-banner {
-	background: url("../img/layout/openttd-index.png") repeat-x;
-	height: auto !important;
-	height: 183px;
+.index-banner {
+	align-items: center;
+	border-radius: 6px;
+	display: flex;
+	height: 185px;
+	justify-content: space-between;
 	margin-bottom: 10px;
-	min-height: 183px;
-}
-#openttd-banner {
-	background: url("../img/layout/openttd-128.gif") no-repeat;
-	background-position: left center;
-	color: #FFFFFF;
-	font-size: 24px;
-	float: right;
-	height: 181px;
-	width: 520px;
+	overflow: hidden;
+	padding-left: 30px;
+	padding-right: 30px;
 }
 #openttd-text {
-	margin: 43px 0px 0px 130px;
-	text-align: left;
+	color: #FFFFFF;
+	font-size: 24px;
+	width: 350px;
 }
-#openttd-banner-left-1, #openttd-banner-left-4, #openttd-banner-left-7 {
-	background: url("../img/layout/frontpage-teaser-1.jpg") no-repeat;
-	height: 183px;
+#openttd-banner-left-1 {
+	background: linear-gradient(to right, #00000000 0%, #333333 75%), url("../img/teaser/1.png") no-repeat;
 }
-#openttd-banner-left-2, #openttd-banner-left-5 {
-	background: url("../img/layout/frontpage-teaser-2.jpg") no-repeat;
-	height: 183px;
+#openttd-banner-left-2 {
+	background: linear-gradient(to right, #00000000 0%, #333333 75%), url("../img/teaser/2.png") no-repeat;
 }
-#openttd-banner-left-3, #openttd-banner-left-6 {
-	background: url("../img/layout/frontpage-teaser-3.jpg") no-repeat;
-	height: 183px;
+#openttd-banner-left-3 {
+	background: linear-gradient(to right, #00000000 0%, #333333 75%), url("../img/teaser/3.png") no-repeat;
 }
-#openttd-banner-right {
-	background: url("../img/layout/openttd-index-right.png") no-repeat;
-	float: right;
-	height: 183px;
-	width: 15px;
+#openttd-banner-left-4 {
+	background: linear-gradient(to right, #00000000 0%, #333333 75%), url("../img/teaser/4.png") no-repeat;
+}
+#openttd-banner-left-5 {
+	background: linear-gradient(to right, #00000000 0%, #333333 75%), url("../img/teaser/5.png") no-repeat;
+}
+#openttd-banner-left-6 {
+	background: linear-gradient(to right, #00000000 0%, #333333 75%), url("../img/teaser/6.png") no-repeat;
+}
+#openttd-banner-left-7 {
+	background: linear-gradient(to right, #00000000 0%, #333333 75%), url("../img/teaser/7.png") no-repeat;
 }
 
 #banner-links {
 	color: #CCCCCC;
-	float: right;
-	font-size: 11px;
-	height: 183px;
-	text-align: left;
-	width: 210px;
-}
-#banner-links ul {
-	margin: 10px 0px 0px 0px;
-	padding: 0px;
 }
 #banner-links ul li {
 	list-style-type: none;
 }
 #banner-links ul li a {
 	color: #FFFFFF;
-	display: block;
-	height: 50px;
-	padding-top: 5px;
+	display: flex;
+	flex-direction: row;
 	text-decoration: none;
 }
-#banner-links ul li a:hover {
+#banner-links ul li a:focus, #banner-links ul li a:hover {
 	color: #999999;
 }
 #banner-links .h3 {
 	font-size: 14px;
-	margin-left: 55px;
 }
 #banner-links .h5 {
-	font-size: 11px;
-	margin-left: 55px;
 	color: #CCCCCC;
+	font-size: 11px;
 }
-#banner-download {
-	background: url("../img/layout/index-download.gif") no-repeat;
-}
-#banner-wiki {
-	background: url("../img/layout/index-wiki.gif") no-repeat;
-}
-#banner-forum {
-	background: url("../img/layout/index-forum.gif") no-repeat;
+#banner-links .banner-text {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
 }
 
 #index-right {
@@ -87,41 +70,27 @@
 	width: 246px;
 }
 #screenshot {
+	margin: 0;       /* it's necessary to bring the margin to 0 because figure brings its own huge margin in most browsers */
 	font-size: 11px;
 }
 #screenshot-image {
+	display: block;
 	background-color: #FCB030;
-	padding: 6px 0px 0px 0px;
-	height: 184px;
+	padding: 6px;
+	text-align: center;
 }
 #screenshot-image img {
+	display: block;
+	margin: auto;
 	border: 1px solid #FFFFFF;
+	width: 100%;
+	height: auto;
 }
-#screenshot-content {
+#screenshot figcaption {
 	background-color: #FEE7C0;
 	padding: 10px 10px 10px 10px;
-	text-align: left;
+	padding: 6px;
 }
-#donate {
-	background: url("../img/layout/section-donate-bg.png") repeat;
-	border: 1px solid #EFCBCB;
-	margin: 10px 0px 10px 0px;
-}
-#donate a {
-	display: block;
-	margin: 0px 10px 10px 10px;
-	text-decoration: none;
-	text-align: justify;
-}
-#donate-text {
-	color: #000000;
-}
-#donate-header {
-	background: url("../img/layout/section-donate.png") no-repeat;
-	color: #B30000;
-	display: block;
-	height: 45px;
-	margin: 5px;
-	padding: 5px 0px 0px 50px;
-	text-align: left;
+#screenshot figcaption > * {
+	margin: 0;
 }
